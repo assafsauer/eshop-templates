@@ -15,3 +15,4 @@ helm template {{ cookiecutter.component.name }} istio/istio-operator \
 -f $script_path/helm-values.yaml \
 > $output_path/istio-operator.yaml
 
+

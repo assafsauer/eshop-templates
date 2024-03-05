@@ -1,15 +1,15 @@
-{
-  "project_slug" : "istio",
+"project_slug" : "istio",
 
-  "component" : "",
-  "links_to" : "",
-  "links_from" : "",
-  "components" : "",
-  "configuration" : "",
+"component" : "",
+"links_to" : "",
+"links_from" : "",
+"components" : "",
+"configuration" : "",
 
-  "technical": {
-    "istio_chart_version": "1.20.3"
-  },
+"technical": {
+"chart_version": "1.20.3"
+},
+
 
   "_metadata": {
     "secret_files": [
@@ -23,3 +23,4 @@
     "local_extensions.bcrypt_hash"
   ]
 }
+
