@@ -1,26 +1,18 @@
-"project_slug" : "istio",
-
-"component" : "",
-"links_to" : "",
-"links_from" : "",
-"components" : "",
-"configuration" : "",
-
-"technical": {
-"chart_version": "1.20.3"
-},
-
-
-  "_metadata": {
-    "secret_files": [
-      "k8s/deploy/base/secret/git.env",
-      "k8s/deploy/base/secret/registry.json",
-      "k8s/deploy/base/secret/sops-key.txt"
-    ]
-  },
-
-  "_extensions": [
-    "local_extensions.bcrypt_hash"
-  ]
+{
+  "project_slug": "istio",
+  "component": "",
+  "links_to": "",
+  "links_from": "",
+  "components": "",
+  "configuration": "",
+  "technical": {
+    "chart_version": "1.20.3"
+  }
 }
+
+
+
+
+
+
 
