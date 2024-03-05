@@ -14,9 +14,9 @@ istio/gateway                      	1.20.3       	1.20.3     	Helm chart for dep
 
 ########  install with operator   ########
 
+helm repo add stevehipwell https://stevehipwell.github.io/helm-charts/
+helm repo update
+helm install istio-operator stevehipwell/istio-operator --namespace istio-operator --create-namespace --version <desired_version>
 
-
-helm template istio-operator istio/istio-operator \
---namespace istio-operator \
---include-crds \
-> $output_path/istio-operator.yaml
+ 
+ 
