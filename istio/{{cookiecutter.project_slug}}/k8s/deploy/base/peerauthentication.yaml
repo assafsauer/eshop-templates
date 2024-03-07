@@ -1,5 +1,5 @@
 {% for link in cookiecutter.links_to.values() %}
-  {% if link.component.attributes.mtls is defined and link.component.attributes.mtls == true %}
+  {% if link.attributes.mtls == true %}
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
