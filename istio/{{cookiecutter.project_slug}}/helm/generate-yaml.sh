@@ -14,6 +14,7 @@ helm repo update || exit 1
 helm template "{{ cookiecutter.component.name }}" stevehipwell/istio-operator \
 --namespace "{{ cookiecutter.component.attributes.namespace }}" \
 --version "{{ cookiecutter.technical.chart_version }}" \
+--include-crds \
 -f "$script_path/helm-values.yaml" \
 > "$output_path/istio-operator.yaml" || exit 1
 
