@@ -1,11 +1,13 @@
-
-{%- if cookiecutter.links_from and any(link['mtls'] is defined and link['mtls'] for link in cookiecutter.links_from.values()) %}
+{% for link in cookiecutter.links_to.values() %}
+  {%- if link.component.attributes.mtls %}
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
-  name: default
-  namespace: example-namespace
+  name:  {{ link.component.name }}
+  namespace: {{ link.component.attributes.namespace }}
 spec:
   mtls:
     mode: STRICT
-{%- endif %}
+---
+{% endif %}
+  {% endfor %}
