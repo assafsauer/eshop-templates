@@ -1,9 +1,9 @@
 {% for link in cookiecutter.links_to.values() %}
-  {%- if link.component.attributes.mtls %}
+  {% if link.component.attributes.mtls is defined and link.component.attributes.mtls %}
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
-  name:  {{ link.component.name }}
+  name: {{ link.component.name }}
   namespace: {{ link.component.attributes.namespace }}
 spec:
   mtls:
