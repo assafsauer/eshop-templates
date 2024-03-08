@@ -1,8 +1,0 @@
-apiVersion: install.istio.io/v1alpha1
-kind: IstioOperator
-metadata:
-  namespace: istio-system
-  name: istio-setup
-spec:
-  profile: default  # This specifies which installation profile to use (e.g., default, demo, minimal)
-  # Additional customization here
