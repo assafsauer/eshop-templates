@@ -8,9 +8,9 @@ else
     output_path="$script_path/$1"
 fi
 
-helm repo add istio https://istio-release.storage.googleapis.com/charts helm repo update
+helm repo add istio https://istio-release.storage.googleapis.com/charts
+helm repo update
 
-helm install istio-base istio/base -n istio-system
 
 helm template "{{ cookiecutter.component.name }}" istio/istio-control/istio-discovery  \
 --namespace "{{ cookiecutter.component.attributes.namespace }}" \
