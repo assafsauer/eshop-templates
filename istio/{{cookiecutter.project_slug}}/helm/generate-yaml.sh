@@ -16,14 +16,14 @@ helm template "{{ cookiecutter.component.name }}" istio/istio-control/istio-disc
 --namespace "{{ cookiecutter.component.attributes.namespace }}" \
 --version "{{ cookiecutter.technical.chart_version }}" \
 -f "$script_path/helm-values.yaml" \
-> "$output_path/istio-operator.yaml" || exit 1
+> "$output_path/istio-control.yaml" || exit 1
 
 
 helm template "{{ cookiecutter.component.name }}"  istio/gateway  \
 --namespace "{{ cookiecutter.component.attributes.namespace }}" \
 --version "{{ cookiecutter.technical.chart_version }}" \
 -f "$script_path/helm-values.yaml" \
-> "$output_path/istio-operator.yaml" || exit 1
+> "$output_path/istio-gateway.yaml" || exit 1
 
 helm template "{{ cookiecutter.component.name }}" istio/istio-control/istio-discovery  \
 --namespace "{{ cookiecutter.component.attributes.namespace }}" \
