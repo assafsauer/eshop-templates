@@ -1,5 +1,6 @@
 resources:
   - namespace.yaml
-  - istio-operator.yaml
   - istio-deployment.yaml
-
+  - istio-base.yaml
+  - istio-control.yaml
+  - istio-gateway.yaml
