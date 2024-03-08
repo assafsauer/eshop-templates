@@ -12,7 +12,7 @@ helm repo add istio https://istio-release.storage.googleapis.com/charts
 helm repo update
 
 
-helm template "{{ cookiecutter.component.name }}" istio/istio-control/istio-discovery  \
+helm template "{{ cookiecutter.component.name }}" istio/istiod  \
 --namespace "{{ cookiecutter.component.attributes.namespace }}" \
 --version "{{ cookiecutter.technical.chart_version }}" \
 -f "$script_path/helm-values-control.yaml" \
