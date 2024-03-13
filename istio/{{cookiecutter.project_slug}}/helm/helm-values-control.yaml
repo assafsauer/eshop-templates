@@ -1,21 +1,26 @@
-global:
-  hub: docker.io/istio
-  tag: latest
-  proxy:
-    image: proxyv2
-
 pilot:
-  image: pilot
+  autoscaleEnabled: true
+  autoscaleMin: 1
+  autoscaleMax: 5
+  replicaCount: 1
   resources:
     requests:
       cpu: 500m
       memory: 2048Mi
-
-meshConfig:
-  enablePrometheusMerge: true
+  image: pilot
+  traceSampling: 1.0
+  cni:
+    enabled: false
 
 sidecarInjectorWebhook:
+  neverInjectSelector: []
+  alwaysInjectSelector: []
+  injectedAnnotations: {}
+  enableNamespacesByDefault: false
+  reinvocationPolicy: Never
   rewriteAppHTTPProbe: true
+  templates: {}
+  defaultTemplates: []
 
 telemetry:
   enabled: true
@@ -23,5 +28,37 @@ telemetry:
     enabled: true
     prometheus:
       enabled: true
+    stackdriver:
+      enabled: false
 
+global:
+  defaultPodDisruptionBudget:
+    enabled: true
+  defaultResources:
+    requests:
+      cpu: 10m
+  hub: gcr.io/istio-testing
+  tag: latest
+  istiod:
+    enableAnalysis: false
+  meshConfig:
+    enablePrometheusMerge: true
+  proxy:
+    image: proxyv2
+    autoInject: enabled
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 2000m
+        memory: 1024Mi
+    logLevel: warning
+  proxy_init:
+    image: proxyv2
 
+base:
+  enableIstioConfigCRDs: true
+
+istio_cni:
+  provider: default
