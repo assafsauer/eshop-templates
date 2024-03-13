@@ -1,3 +1,5 @@
+```
+
 ########  install without operator   ########
 
 helm repo add istio https://istio-release.storage.googleapis.com/charts
@@ -18,5 +20,9 @@ helm repo add stevehipwell https://stevehipwell.github.io/helm-charts/
 helm repo update
 helm install istio-operator stevehipwell/istio-operator --namespace istio-operator --create-namespace --version <desired_version>
 
- 
- 
+##### change debug mode 
+kubectl exec <pod-name> -c istio-proxy -n <namespace> -- pilot-agent request POST 'logging?level=debug'
+
+
+
+```
