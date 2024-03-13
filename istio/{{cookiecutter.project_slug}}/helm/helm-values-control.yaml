@@ -9,16 +9,8 @@ pilot:
       memory: 2048Mi
 
 global:
-  defaultPodDisruptionBudget:
-    enabled: true
-  defaultResources:
-    requests:
-      cpu: 10m
-  hub: gcr.io/istio-testing
-  tag: latest
-  istiod:
-    enableAnalysis: false
   proxy:
+    image: docker.io/istio/proxyv2:1.10.0
     autoInject: enabled
     resources:
       requests:
@@ -27,8 +19,6 @@ global:
       limits:
         cpu: 2000m
         memory: 1024Mi
-  proxy_init:
-    image: proxyv2
 
 meshConfig:
   enablePrometheusMerge: true
