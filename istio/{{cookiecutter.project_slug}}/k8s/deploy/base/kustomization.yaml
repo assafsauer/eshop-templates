@@ -2,4 +2,3 @@ resources:
   - namespace.yaml
   - istio-control.yaml
   - istio-base.yaml
-  - istio-gateway.yaml

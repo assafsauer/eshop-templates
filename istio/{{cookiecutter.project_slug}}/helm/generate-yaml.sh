@@ -25,11 +25,6 @@ helm template "{{ cookiecutter.component.name }}"  istio/base  \
 -f "$script_path/helm-values-base.yaml" \
 > "$output_path/istio-base.yaml" || exit 1
 
-helm template "{{ cookiecutter.component.name }}" istio/gateway  \
---namespace "{{ cookiecutter.component.attributes.namespace }}" \
---version "{{ cookiecutter.technical.chart_version }}" \
--f "$script_path/helm-values-gateway.yaml" \
-> "$output_path/istio-gateway.yaml" || exit 1
  
 
  
