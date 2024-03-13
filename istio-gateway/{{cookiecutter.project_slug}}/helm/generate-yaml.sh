@@ -13,7 +13,7 @@ helm repo update
 
 
 helm template "{{ cookiecutter.component.name }}" istio/gateway  \
---namespace "{{ cookiecutter.component.attributes.namespace }}" \
+--namespace "{{ cookiecutter.__istio_namespace }}" \
 --version "{{ cookiecutter.technical.chart_version }}" \
 -f "$script_path/helm-values-gateway.yaml" \
 > "$output_path/istio-gateway.yaml" || exit 1

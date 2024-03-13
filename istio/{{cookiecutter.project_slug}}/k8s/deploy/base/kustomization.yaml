@@ -1,4 +1,4 @@
 resources:
-  - namespace.yaml
+  - virtualservice.yaml
   - istio-control.yaml
   - istio-base.yaml
