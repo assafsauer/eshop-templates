@@ -1,24 +1,15 @@
+global:
+  hub: docker.io/istio
+  tag: 1.10.0
+  proxy:
+    image: proxyv2
+
 pilot:
-  autoscaleEnabled: true
-  autoscaleMin: 1
-  autoscaleMax: 5
-  replicaCount: 1
+  image: pilot
   resources:
     requests:
       cpu: 500m
       memory: 2048Mi
-
-global:
-  proxy:
-    image: docker.io/istio/proxyv2:1.10.0
-    autoInject: enabled
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128Mi
-      limits:
-        cpu: 2000m
-        memory: 1024Mi
 
 meshConfig:
   enablePrometheusMerge: true
@@ -33,4 +24,6 @@ telemetry:
     prometheus:
       enabled: true
 
-revision: ""
+  base:
+    # For istioctl usage to disable istio config crds in base
+    enableIstioConfigCRDs: true
