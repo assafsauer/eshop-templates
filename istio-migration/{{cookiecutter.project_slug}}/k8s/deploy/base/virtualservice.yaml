@@ -6,11 +6,7 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    { % for key, link in cookiecutter.links_to.items() % }
-    { % if loop.first % }  # Assuming you want to use the first link only
-    - "{{ link.component.name }}.{{ link.component.attributes.namespace }}.svc.cluster.local"
-      { % endif % }
-    { % endfor % }
+    - "service.namespace.svc.cluster.local"
   http:
     - match:
         - uri:
