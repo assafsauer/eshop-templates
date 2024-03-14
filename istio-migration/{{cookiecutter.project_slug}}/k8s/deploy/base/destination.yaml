@@ -4,24 +4,20 @@ metadata:
   name: python-service-destination-rule
   namespace: {{ cookiecutter.__backend_from.component.attributes.namespace }}
 spec:
-  host: python1.python1.svc.cluster.local
+  host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
   subsets:
-    - name: {{ cookiecutter.__backend_from.component.attributes.version }}
+    - name: "{{ cookiecutter.__backend_from.component.attributes.version_label }}"
       labels:
-        stacktic.io/version: {{ cookiecutter.__backend_from.component.attributes.version }}
-    - name: {{ cookiecutter.__backend_to.component.attributes.version }}
-      labels:
-        stacktic.io/version: {{ cookiecutter.__backend_to.component.attributes.version }}
+        stacktic.io/version: "{{ cookiecutter.__backend_from.component.attributes.version }}"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: python2-service-destination-rule
-  namespace: {{ cookiecutter.__backend_from.component.attributes.namespace }}
+  namespace: {{ cookiecutter.__backend_to.component.attributes.namespace }}
 spec:
-  host: {{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local
+  host: "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local"
   subsets:
-    - name: {{ cookiecutter.__backend_to.component.attributes.version }}
+    - name: "{{ cookiecutter.__backend_to.component.attributes.version_label }}"
       labels:
-        stacktic.io/version: {{ cookiecutter.__backend_to.component.attributes.version }}
-
+        stacktic.io/version: "{{ cookiecutter.__backend_to.component.attributes.version }}"

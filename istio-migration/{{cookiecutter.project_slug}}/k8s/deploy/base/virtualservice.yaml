@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: python1-to-python2-routing
-  namespace: python1
+  namespace: {{ cookiecutter.__backend_from.component.attributes.namespace }}
 spec:
   hosts:
     - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.configuration.domain }}"
@@ -13,14 +13,14 @@ spec:
             prefix: "/greeting"
       route:
         - destination:
-            host: {{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local
+            host: "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local"
             port:
               number: 8080
-          stacktic.io/version: {{ cookiecutter.__backend_to.component.attributes.version }}
+            subset: "{{ cookiecutter.__backend_to.component.attributes.version_label }}"
           weight: 10
         - destination:
-            host: {{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
             port:
               number: 8080
-          stacktic.io/version: {{ cookiecutter.__backend_from.component.attributes.version }}
+            subset: "{{ cookiecutter.__backend_from.component.attributes.version_label }}"
           weight: 90
