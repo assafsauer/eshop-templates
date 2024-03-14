@@ -5,21 +5,21 @@ metadata:
   namespace: python1
 spec:
   hosts:
-    - "{{ cookiecutter.__backend_from.component.name }}.apps.source-lab.io"
-    - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}svc.cluster.local"
+    - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.configuration.domain }}"
+    - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
   http:
     - match:
         - uri:
             prefix: "/greeting"
       route:
         - destination:
-            host: python2.python2.svc.cluster.local
+            host: {{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local
             port:
               number: 8080
           subset: v1
           weight: 90
         - destination:
-            host: python2.python2.svc.cluster.local
+            host: {{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local
             port:
               number: 8080
           subset: v2
