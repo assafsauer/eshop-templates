@@ -16,11 +16,11 @@ spec:
             host: "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local"
             port:
               number: 8080
-            subset: "{{ cookiecutter.__backend_to.component.name }}_version"
+            subset: "{{ cookiecutter.__backend_to.component.name }}-version"
           weight: 10
         - destination:
             host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
             port:
               number: 8080
-            subset: "{{ cookiecutter.__backend_from.component.name }}_version"
+            subset: "{{ cookiecutter.__backend_from.component.name }}-version"
           weight: 90
