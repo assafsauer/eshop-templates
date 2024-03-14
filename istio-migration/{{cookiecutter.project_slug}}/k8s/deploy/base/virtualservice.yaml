@@ -26,3 +26,24 @@ spec:
               number: 8080
             subset: "{{ cookiecutter.__backend_from.component.name }}-version"
           weight: 90
+  tls:
+    - match:
+        - uri:
+            prefix: "/greeting"
+          port: 443  # Match HTTPS traffic
+          sniHosts:
+            - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.configuration.domain }}"
+            - "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.configuration.domain }}"
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 443
+            subset: "{{ cookiecutter.__backend_to.component.name }}-version"
+          weight: 10
+        - destination:
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 443
+            subset: "{{ cookiecutter.__backend_from.component.name }}-version"
+          weight: 90
