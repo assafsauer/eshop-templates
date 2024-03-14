@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: python2-destination
+  namespace: python2
+spec:
+  host: {{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_to.component.attributes.namespace }}.svc.cluster.local
+  subsets:
+    - name: v1
+      labels:
+        stacktic.io/app: python2
+        version: v1
+    - name: v2
+      labels:
+        stacktic.io/app: python2
+        version: v2
