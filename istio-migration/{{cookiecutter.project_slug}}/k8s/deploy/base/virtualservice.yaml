@@ -6,9 +6,9 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    { % for link_from in cookiecutter.links_from.values() % }
-    { % if link_from.group == "backend-mesh" % }
-    - "{{ link_from.component.name }}.{{ link_from.component.attributes.namespace }}.svc.cluster.local"
+    { % for key, link in cookiecutter.links_to.items() % }
+    { % if loop.first % }  # Assuming you want to use the first link only
+    - "{{ link.component.name }}.{{ link.component.attributes.namespace }}.svc.cluster.local"
       { % endif % }
     { % endfor % }
   http:
