@@ -1,4 +1,5 @@
 resources:
   - virtualservice.yaml
+  - destination.yaml
 
 

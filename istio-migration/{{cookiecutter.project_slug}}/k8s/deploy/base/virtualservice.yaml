@@ -6,7 +6,9 @@ metadata:
 spec:
   hosts:
     - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.configuration.domain }}"
+    - "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.configuration.domain }}"
     - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+    - "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
   http:
     - match:
         - uri:
