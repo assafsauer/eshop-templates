@@ -4,13 +4,13 @@
 {% endfor %}
 
 # Check if there is an existing link to Python backends
-{% for link in cookiecutter.links_to.values() if link.group == "mesh-backend" and link.type == 'istio-migration-python' %}
-{{ cookiecutter.update({"__backend_python_to": link }) }}
+{% for link in cookiecutter.links_to.values() if link.group == "mesh-backend"  %}
+{{ cookiecutter.update({"__backend_to": link }) }}
 {% endfor %}
 
 # Check if there is an existing link from Python backends
-{% for link in cookiecutter.links_from.values() if link.group == "backend-mesh" and link.type == 'python-istio-migration' %}
-{{ cookiecutter.update({"__backend_python_from": link }) }}
+{% for link in cookiecutter.links_from.values() if link.group == "backend-mesh"  %}
+{{ cookiecutter.update({"__backend_from": link }) }}
 {% endfor %}
 
 
