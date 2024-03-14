@@ -8,7 +8,7 @@ spec:
   subsets:
     - name: "{{ cookiecutter.__backend_from.component.name }}-version"
       labels:
-        stacktic.io/version: "{{ cookiecutter.__backend_from.component.attributes.version }}"
+        stacktic.io/version: {{ cookiecutter.__backend_from.component.attributes.version }}
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -20,4 +20,4 @@ spec:
   subsets:
     - name: "{{ cookiecutter.__backend_to.component.name }}-version"
       labels:
-        stacktic.io/version: "{{ cookiecutter.__backend_to.component.attributes.version }}"
+        stacktic.io/version: {{ cookiecutter.__backend_to.component.attributes.version }}
