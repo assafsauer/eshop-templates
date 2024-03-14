@@ -6,15 +6,12 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    { % set ns = namespace(found=false) % }
-    { % for link_from in cookiecutter.links_from.values() % }
-    { % if link_from.group == "backend-mesh" and ns.found == false % }
-    { % set ns.found = true % }
+    { %- for link_from in cookiecutter.links_from.values() % }
+    { %- if link_from.group == "backend-mesh" % }
     - "{{ link_from.component.name }}.{{ link_from.component.attributes.namespace }}.svc.cluster.local"
-    { % endif % }
-    { % endfor % }
+    { %- endif % }
+    { %- endfor % }
   http:
-
     - match:
         - uri:
             prefix: "/greeting"
