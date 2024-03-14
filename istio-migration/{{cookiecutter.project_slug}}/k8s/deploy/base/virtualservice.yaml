@@ -6,7 +6,7 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    - "python1.python1.svc.cluster.local"
+    - "{{ cookiecutter.__backend_from }}.{{ cookiecutter.__backend_from.attribute.namespace }}.svc.cluster.local"
   http:
     - match:
         - uri:
