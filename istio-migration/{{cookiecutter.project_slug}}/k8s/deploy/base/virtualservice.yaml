@@ -6,11 +6,11 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    { %- for link_from in cookiecutter.links_from.values() % }
-    { %- if link_from.group == "backend-mesh" % }
+    { % for link_from in cookiecutter.links_from.values() % }
+    { % if link_from.group == "backend-mesh" % }
     - "{{ link_from.component.name }}.{{ link_from.component.attributes.namespace }}.svc.cluster.local"
-    { %- endif % }
-    { %- endfor % }
+      { % endif % }
+    { % endfor % }
   http:
     - match:
         - uri:
