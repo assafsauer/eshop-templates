@@ -6,9 +6,8 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    { % for backend_component_name in cookiecutter.__backend_from % }
-    - "{{ backend_component_name }}.{{ cookiecutter.__istio_namespace }}.svc.cluster.local"
-    { % endfor % }
+    - "{{ cookiecutter.__backend_from }}.{{ cookiecutter.__backend_from.attribute.namespace }}.svc.cluster.local"
+  http:
     - match:
         - uri:
             prefix: "/greeting"
