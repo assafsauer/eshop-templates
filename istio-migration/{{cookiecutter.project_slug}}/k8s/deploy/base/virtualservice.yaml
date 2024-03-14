@@ -6,7 +6,7 @@ metadata:
 spec:
   hosts:
     - "python1.apps.source-lab.io"
-    { % if cookiecutter.__selected_link_from % }
+    {% for link_from in cookiecutter.links_from.values() if link_from.group == "backend-mesh" -%}
     - "{{ cookiecutter.__selected_link_from.component.name }}.{{ cookiecutter.__selected_link_from.component.attributes.namespace }}.svc.cluster.local"
     { % endif % }
   http:
