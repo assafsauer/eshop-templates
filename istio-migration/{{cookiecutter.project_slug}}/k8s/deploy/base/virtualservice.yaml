@@ -28,9 +28,7 @@ spec:
           weight: 90
   tls:
     - match:
-        - uri:
-            prefix: "/greeting"
-          port: 443  # Match HTTPS traffic
+        - port: 443  # Match HTTPS traffic
           sniHosts:
             - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.configuration.domain }}"
             - "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.configuration.domain }}"
