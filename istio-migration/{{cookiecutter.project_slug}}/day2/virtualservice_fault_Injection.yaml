@@ -10,6 +10,7 @@ spec:
     - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
     - "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
   http:
+    # Base routing rule
     - match:
         - uri:
             prefix: "{{ cookiecutter.component.attributes.path }}"
@@ -26,6 +27,31 @@ spec:
               number: 8080
             subset: "{{ cookiecutter.__backend_from.component.name }}-version"
           weight: {{ cookiecutter.component.attributes.weight_source }}
+
+    # Fault Injection for a different URI
+    - match:
+        - uri:
+            prefix: "/test-fault"
+      fault:
+        delay:
+          fixedDelay: 5s
+          percentage:
+            value: 100
+
+    # Retries for a specific URI
+    - match:
+        - uri:
+            prefix: "/test-retry"
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+        retryOn: 5xx,gateway-error,connect-failure,refused-stream
+
+    # Timeouts for a specific URI
+    - match:
+        - uri:
+            prefix: "/test-timeout"
+      timeout: 3s
 
   tls:
     - match:

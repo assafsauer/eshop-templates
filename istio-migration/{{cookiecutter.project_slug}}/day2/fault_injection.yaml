@@ -1,0 +1,89 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: advanced-routing-example
+  namespace: {{ cookiecutter.__backend_from.component.attributes.namespace }}
+spec:
+  hosts:
+    - "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+    - "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+  http:
+    # Fault Injection: Introduce a delay for testing latency impact
+    - match:
+        - uri:
+            prefix: "/test-delay"
+      fault:
+        delay:
+          fixedDelay: 3s
+          percentage:
+            value: 50
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 8080
+
+    # Fault Injection: Abort requests to simulate server errors
+    - match:
+        - uri:
+            prefix: "/test-abort"
+      fault:
+        abort:
+          httpStatus: 503
+          percentage:
+            value: 30
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 8080
+
+    # Retries: Automatically retry failed requests
+    - match:
+        - uri:
+            prefix: "/test-retry"
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+        retryOn: 5xx,connect-failure,refused-stream
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 8080
+
+    # Timeouts: Set a request timeout
+    - match:
+        - uri:
+            prefix: "/test-timeout"
+      timeout: 5s
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 8080
+
+    # Conditional Routing: Route traffic based on headers
+    - match:
+        - headers:
+            x-user-type:
+              exact: "vip"
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 8080
+
+    # Mirror Traffic: Send a copy of the traffic to another service for testing
+    - match:
+        - uri:
+            prefix: "/test-mirror"
+      mirror:
+        host: "{{ cookiecutter.__backend_to.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+        port:
+          number: 8080
+      route:
+        - destination:
+            host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
+            port:
+              number: 8080
