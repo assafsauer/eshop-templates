@@ -38,10 +38,10 @@ spec:
             port:
               number: 443
             subset: "{{ cookiecutter.__backend_to.component.name }}-version"
-          weight: 10
+          weight: {{ cookiecutter.component.attributes.weight_destination }}
         - destination:
             host: "{{ cookiecutter.__backend_from.component.name }}.{{ cookiecutter.__backend_from.component.attributes.namespace }}.svc.cluster.local"
             port:
               number: 443
             subset: "{{ cookiecutter.__backend_from.component.name }}-version"
-          weight: 90
+          weight: {{ cookiecutter.component.attributes.weight_source }}
