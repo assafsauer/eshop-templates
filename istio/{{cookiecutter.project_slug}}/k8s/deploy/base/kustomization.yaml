@@ -3,6 +3,6 @@ resources:
   - istio-control.yaml
   - istio-base.yaml
   {%- if cookiecutter.component.attributes.kiali %}
-  - helm-values-kiali.yaml
+  - istio-kiali.yaml
   {%- endif %}
 
