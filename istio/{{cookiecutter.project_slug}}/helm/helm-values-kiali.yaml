@@ -1,0 +1,23 @@
+# Minimal values.yaml for Kiali Server
+
+istio_namespace: "istio-system" # Adjust if your Istio is installed in a different namespace
+
+auth:
+  strategy: "anonymous" # For demo purposes; consider a more secure strategy for production
+
+deployment:
+  accessible_namespaces:
+    - "**" # Kiali will attempt to access all namespaces
+
+  image_version: "latest" # Use a specific version as needed
+
+  # Specify the instance name if you want something other than the default
+  instance_name: "kiali"
+
+server:
+  web_root: "/" # Default web root, adjust if needed
+
+# You can enable or disable additional features as needed
+external_services:
+  custom_dashboards:
+    enabled: true
