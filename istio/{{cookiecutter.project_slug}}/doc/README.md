@@ -14,4 +14,8 @@ assafsauer@Assafs-MacBook-Pro canary % kubectl logs python2-779d548cbf-kg9x8  -n
 2024-03-15 05:11:27,738 - werkzeug - INFO - 127.0.0.6 - - [15/Mar/2024 05:11:27] "GET /greeting HTTP/1.1" 200 -
 ```
 
+```
+kubectl port-forward svc/kiali 20001:20001 -n istio-system
+```
+
 notes: kubectl 

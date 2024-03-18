@@ -1,0 +1,34 @@
+resources:
+  - namespace.yaml
+  - source_code.yaml
+  {%- if cookiecutter.component.attributes.network_policy %}
+  - network-policy.yaml
+  {%- endif %}
+  {%- if cookiecutter.__ingress != "" and cookiecutter.__ingress.attributes.cors %}
+  - cors.yaml
+  {%- endif %}
+  {%- if cookiecutter.__ingress != "" and cookiecutter.__ingress.attributes.rate_limiting %}
+  - rate-limit.yaml
+  {%- endif %}
+
+configMapGenerator:
+  - name: {{ cookiecutter.component.name }}-config
+    namespace: {{ cookiecutter.component.attributes.namespace }}
+    envs:
+      - config/cloud.env
+
+secretGenerator:
+  - name: registry-credential
+    namespace: {{ cookiecutter.component.attributes.namespace }}
+    files:
+      - .dockerconfigjson=secret/registry.json
+    type: kubernetes.io/dockerconfigjson
+    options:
+      disableNameSuffixHash: true
+
+labels:
+  - pairs:
+      stacktic.io/app: "{{ cookiecutter.component.name }}"
+      stacktic.io/group: "{{cookiecutter.component.group }}"
+      stacktic.io/namespace: "{{ cookiecutter.component.attributes.namespace }}"
+    includeTemplates: true

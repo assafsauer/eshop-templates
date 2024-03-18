@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ cookiecutter.project_slug }}-kaniko
+  namespace: {{ cookiecutter.configuration.build_namespace }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: kaniko
+          image: gcr.io/kaniko-project/executor:{{ cookiecutter.technical.kaniko_version }}
+          args:
+            - "--context=git://{{ cookiecutter.configuration.git_full_path }}"
+            - "--context-sub-path={{ cookiecutter.configuration.git_folder  }}"
+            - "--destination={{ cookiecutter.configuration.registry_host }}/{{ cookiecutter.configuration.registry_project }}/{{ cookiecutter.component.name }}:{{ cookiecutter.component.attributes.version }}"
+          env:
+            - name: GIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: git-credential
+                  key: password
+            - name: GIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: git-credential
+                  key: username
+          volumeMounts:
+            - name: kaniko-secret
+              mountPath: /kaniko/.docker
+      restartPolicy: Never
+      volumes:
+        - name: kaniko-secret
+          secret:
+            secretName: registry-credential
+            items:
+              - key: .dockerconfigjson
+                path: config.json

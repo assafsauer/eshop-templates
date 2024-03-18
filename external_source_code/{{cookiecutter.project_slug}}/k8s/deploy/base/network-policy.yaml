@@ -1,0 +1,146 @@
+### NetworkPolicies
+
+{%- for link in cookiecutter.links_to.values() %}
+### allow Egress for {{ cookiecutter.component.name }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-from-{{ cookiecutter.component.name }}-to-{{ link.component.name }}
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      stacktic.io/app: {{ cookiecutter.component.name }}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              stacktic.io/namespace: {{ link.component.attributes.namespace }}
+        - podSelector:
+            matchLabels:
+              stacktic.io/app: {{ link.component.name }}
+      ports:
+        - protocol: TCP
+          port: {{ link.component.attributes.port }}
+---
+{%- endfor %}
+
+  {% for link in cookiecutter.links_from.values() %}
+  {% if link.component.name == 'kong' %}
+  ### allow DNS access for {{ cookiecutter.component.name }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-access-for-{{ cookiecutter.component.name }}
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      stacktic.io/app: {{ cookiecutter.component.name }}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53  # Port used by DNS
+---
+  {%- endif %}
+
+# allow Ingress for {{ cookiecutter.component.name }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-from-{{ link.component.name }}-to-{{ cookiecutter.component.name }}
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      stacktic.io/app: {{ cookiecutter.component.name }}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              stacktic.io/namespace: {{ link.component.attributes.namespace }}
+        - podSelector:
+            matchLabels:
+              stacktic.io/app: {{ link.component.name }}
+      ports:
+        - protocol: TCP
+          port: {{ cookiecutter.component.attributes.port }}
+---
+{%- endfor %}
+
+  {% for service in cookiecutter.components.values() if service.group in ['authentication', 'frontend', 'cicd', 'platform'] and (service.type != 'k6') %}
+  # allow Ingress for {{ cookiecutter.component.attributes.namespace }} for operational services.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-from-{{ service.name }}-to-{{ cookiecutter.component.name }}
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      stacktic.io/app: {{ cookiecutter.component.name }}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              stacktic.io/namespace: {{ service.attributes.namespace }}
+        - podSelector:
+            matchLabels:
+              stacktic.io/app: {{ service.name }}
+      ports:
+        - protocol: TCP
+          port: {{ cookiecutter.component.attributes.port }}
+---
+  {%- endfor %}
+# allow communication of PODS with label stacktic.io/app: {{ cookiecutter.component.name }} on {{ cookiecutter.component.attributes.namespace }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-{{ cookiecutter.component.name }}-label-on-ns-{{ cookiecutter.component.attributes.namespace }}
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      stacktic.io/app: {{ cookiecutter.component.name }}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              stacktic.io/app: {{ cookiecutter.component.name }}
+---
+## allow DNS to kube-system
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      stacktic.io/app: {{ cookiecutter.component.name }}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53

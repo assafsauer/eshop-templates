@@ -1,0 +1,25 @@
+{
+  "project_slug": "nodejs",
+  "component": "",
+  "links_to": "",
+  "links_from": "",
+  "components": "",
+  "configuration": "",
+  "technical": {
+    "kaniko_version": "v1.9.1",
+    "postgresql_version": "15.2.0",
+    "rabbitmq_version": "3.12.7",
+    "mongodb_version": "5.0.22"
+  },
+  "__prometheus": "",
+  "__ingress": "",
+  "__rel_db": "",
+  "__rabbitmq": "",
+  "__mongodb": "",
+  "_metadata": {
+    "secret_files": [
+      "k8s/deploy/base/secret/registry.json",
+      "k8s/deploy/base/config/cloud.env"
+    ]
+  }
+}

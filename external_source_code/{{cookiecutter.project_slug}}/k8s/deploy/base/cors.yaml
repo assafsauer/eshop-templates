@@ -1,0 +1,25 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: {{ cookiecutter.component.name }}-cors
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+plugin: cors
+config:
+  origins:
+    - "*" # you can change to your domain as follow https://{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
+  methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+    - "PATCH"
+    - "OPTIONS" # Adjust the methods according to your application's needs
+  headers:
+    - "Content-Type"
+    - "Authorization"
+    - "X-Requested-With"
+  exposed_headers:
+    - "X-Custom-Header" # Example, adjust according to the headers your client needs to access
+  credentials: true # Allows cookies and authentication headers to be included in cross-origin requests
+  preflight_continue: false
+  max_age: 3600 # Indicates how long the results of a preflight request can be cached
