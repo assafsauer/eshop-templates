@@ -1,2 +1,8 @@
 resources:
   - kaniko.yaml
+
+secretGenerator:
+  - name: external-source-credential
+    namespace: {{ cookiecutter.configuration.build_namespace }}
+    envs:
+      - secret/git.env

@@ -10,19 +10,19 @@ spec:
         - name: kaniko
           image: gcr.io/kaniko-project/executor:{{ cookiecutter.technical.kaniko_version }}
           args:
-            - "--context=git://{{ cookiecutter.configuration.git_full_path }}"
-            - "--context-sub-path={{ cookiecutter.configuration.git_folder  }}"
+            - "--context=git://{{ cookiecutter.component.attributes.git_full_path }}"
+            - "--context-sub-path={{ cookiecutter.component.attributes.git_folder }}"
             - "--destination={{ cookiecutter.configuration.registry_host }}/{{ cookiecutter.configuration.registry_project }}/{{ cookiecutter.component.name }}:{{ cookiecutter.component.attributes.version }}"
           env:
             - name: GIT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: git-credential
+                  name: external-source-credential
                   key: password
             - name: GIT_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: git-credential
+                  name: external-source-credential
                   key: username
           volumeMounts:
             - name: kaniko-secret
