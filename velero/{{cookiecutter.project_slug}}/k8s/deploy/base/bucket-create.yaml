@@ -12,7 +12,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              mc alias --insecure set myminio https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }} $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD
+              mc alias --insecure set myminio https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
               # Wait for MinIO endpoint to become available
               until mc --insecure admin info myminio; do
                 echo 'Waiting for MinIO to become available...'
