@@ -1,0 +1,19 @@
+{
+  "project_slug": "velero",
+  "component": "",
+  "links_to": "",
+  "links_from": "",
+  "components": "",
+  "configuration": "",
+  "technical": {
+    "version": "v2.9.2"
+  },
+  "__ingress": "",
+  "_metadata": {
+    "secret_files": [
+      "k8s/deploy/base/secret/docker-config.json",
+      "k8s/deploy/base/secret/github.env"
+    ]
+  },
+  "__prometheus": ""
+}

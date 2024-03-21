@@ -1,0 +1,11 @@
+resources:
+  - namespace.yaml
+  - bucket-create.yaml
+  - velero.yaml
+
+labels:
+  - pairs:
+      stacktic.io/app: "{{ cookiecutter.component.name }}"
+      stacktic.io/group: "{{cookiecutter.component.group }}"
+      stacktic.io/namespace: "{{ cookiecutter.component.attributes.namespace }}"
+    includeTemplates: true

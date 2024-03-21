@@ -1,0 +1,9 @@
+resources:
+  - ../../../base/{{ cookiecutter.component.name }}
+
+patches:
+  - target:
+      kind: Deployment
+      name: argo-server
+      namespace: argo
+    path: http-auth.yaml

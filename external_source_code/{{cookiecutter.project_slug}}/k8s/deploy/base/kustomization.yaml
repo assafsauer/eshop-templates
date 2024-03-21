@@ -32,3 +32,4 @@ labels:
       stacktic.io/group: "{{cookiecutter.component.group }}"
       stacktic.io/namespace: "{{ cookiecutter.component.attributes.namespace }}"
     includeTemplates: true
+
