@@ -1,0 +1,14 @@
+resources:
+  - backuprepositories.yaml
+  - backups.yaml
+  - backupstoragelocations.yaml
+  - deletebackuprequests.yaml
+  - datadownloads.yaml
+  - datauploads.yaml
+  - downloadrequests.yaml
+  - podvolumebackups.yaml
+  - podvolumerestores.yaml
+  - restores.yaml
+  - schedules.yaml
+  - serverstatusrequests.yaml
+  - volumesnapshotlocations.yaml
