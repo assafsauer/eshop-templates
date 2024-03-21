@@ -13,9 +13,9 @@ helm repo update
 
 
 helm template "{{ cookiecutter.component.name }}" vmware-tanzu/velero \
---namespace "{{ cookiecutter.__istio_namespace }}" \
+--namespace "{{ cookiecutter.component.attributes.namespace }}" \
 --version "{{ cookiecutter.technical.chart_version }}" \
--f "$script_path/helm-values-gateway.yaml" \
+-f "$script_path/helm-values.yaml" \
 > "$output_path/velero.yaml" || exit 1
  
 
