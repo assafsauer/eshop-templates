@@ -1,22 +1,17 @@
 configuration:
-  provider: aws
   backupStorageLocation:
-    name: default
-    bucket: velero
-    config:
-      region: minio
-      s3ForcePathStyle: "true"
-      s3Url: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
+    - name: default
+      provider: aws
+      bucket: your-bucket-name
+      config:
+        region: minio
+        s3ForcePathStyle: "true"
+        s3Url: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
   volumeSnapshotLocation:
-    name: default
-    config:
-      region: minio
+    - name: default
+      provider: aws
+      config:
+        region: minio
 credentials:
   useSecret: true
   existingSecret: minio-credentials
-initContainers:
-  - name: velero-plugin-for-aws
-    image: velero/velero-plugin-for-aws:v1.2.1
-    volumeMounts:
-      - mountPath: /target
-        name: plugins
