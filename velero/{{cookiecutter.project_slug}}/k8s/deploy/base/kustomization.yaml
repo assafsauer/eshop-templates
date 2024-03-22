@@ -16,3 +16,6 @@ secretGenerator:
     namespace: {{ cookiecutter.component.attributes.namespace }}
     envs:
       - secret/minio.env
+
+generatorOptions:
+  disableNameSuffixHash: true
