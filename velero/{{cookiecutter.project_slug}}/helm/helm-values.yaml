@@ -14,7 +14,7 @@ configuration:
         region: minio
 credentials:
   useSecret: true
-  existingSecret: minio-credentials
+  existingSecret: "{{ cookiecutter.technical.chart_version }}-velero"
 
 initContainers:
   - name: velero-plugin-for-aws
