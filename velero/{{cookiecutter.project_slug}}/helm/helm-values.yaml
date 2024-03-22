@@ -7,6 +7,7 @@ configuration:
         region: minio
         s3ForcePathStyle: "true"
         s3Url: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
+        insecureSkipTLSVerify: "true"
   volumeSnapshotLocation:
     - name: default
       provider: aws
