@@ -13,4 +13,6 @@
 {{ cookiecutter.update({"__backend_from": link }) }}
 {% endfor %}
 
-
+{% for component in cookiecutter.components.values() if component.group == "gateway" %}
+{{ cookiecutter.update({"__ingress": component }) }}
+{% endfor %}
