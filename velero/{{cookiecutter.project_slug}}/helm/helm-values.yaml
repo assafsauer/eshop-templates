@@ -2,7 +2,7 @@ configuration:
   backupStorageLocation:
     - name: default
       provider: aws
-      bucket: your-bucket-name
+      bucket: velero
       config:
         region: minio
         s3ForcePathStyle: "true"
