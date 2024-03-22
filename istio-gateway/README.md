@@ -24,5 +24,10 @@ helm install istio-operator stevehipwell/istio-operator --namespace istio-operat
 kubectl exec <pod-name> -c istio-proxy -n <namespace> -- pilot-agent request POST 'logging?level=debug'
 
 
+ kubectl rollout restart deployment/python1 -n python1
+ kubectl rollout restart deployment/python2 -n python2
+ kubectl rollout restart deployment/istiod -n istio-system
+ kubectl rollout restart deployment/kong -n kong  
+ kubectl rollout restart deployment/istio-gateway -n istio-system
 
 ```
