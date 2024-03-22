@@ -23,3 +23,14 @@ initContainers:
     volumeMounts:
       - mountPath: /target
         name: plugins
+
+credentials:
+  useSecret: true
+  secretContents:
+    cloud: |
+      [default]
+      {%- for service in cookiecutter.components.values() if service.type == 'minio' %}
+      aws_access_key_id={{ service.attributes.access_key }}
+      aws_secret_access_key={{ service.attributes.secret_key }}
+      {%- endfor %}
+

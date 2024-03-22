@@ -1,7 +1,7 @@
 resources:
   - namespace.yaml
   - crds/
-  - bucket-create.yaml
+  #- bucket-create.yaml
   - velero.yaml
 
 labels:
@@ -11,11 +11,6 @@ labels:
       stacktic.io/namespace: "{{ cookiecutter.component.attributes.namespace }}"
     includeTemplates: true
 
-secretGenerator:
-  - name: minio-credentials
-    namespace: {{ cookiecutter.component.attributes.namespace }}
-    envs:
-      - secret/minio.env
 
 generatorOptions:
   disableNameSuffixHash: true
