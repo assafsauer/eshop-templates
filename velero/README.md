@@ -3,7 +3,7 @@
 brew install velero
 
 
-assafsauer@Assafs-MacBook-Pro bluegreen % kubectl get backupstoragelocations.velero.io -n velero -o yaml
+  kubectl get backupstoragelocations.velero.io -n velero -o yaml
 
 apiVersion: v1
 items:
