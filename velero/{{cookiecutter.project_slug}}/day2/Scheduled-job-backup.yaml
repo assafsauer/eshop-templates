@@ -1,0 +1,21 @@
+{% for service in cookiecutter.components.values() if service.group == 'rel_db' or service.group == 'doc_db' or service.group == 'broker' %}
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: {{ service.name }}-backup-schedule
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  schedule: "0 1 * * *"  # This is a cron schedule for "every day at 01:00". Adjust it as necessary.
+  template:
+    includedNamespaces:
+      - {{ service.attributes.namespace }}
+    includedResources:
+      - persistentvolumeclaims
+      - persistentvolumes
+    labelSelector:
+      matchLabels:
+        stacktic.io/app: "{{ service.name }}"
+    storageLocation: default
+    ttl: 24h0m0s
+---
+{% endfor %}

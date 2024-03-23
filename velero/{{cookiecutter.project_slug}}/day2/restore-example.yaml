@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: mongodb-restore
+  namespace: velero
+spec:
+  backupName: mongodb-backup
+  includedNamespaces:
+    - mongodb
+  includedResources:
+    - persistentvolumeclaims
+    - persistentvolumes
+  labelSelector:
+    matchLabels:
+      stacktic.io/app: "mongodb"
+  restorePVs: true
