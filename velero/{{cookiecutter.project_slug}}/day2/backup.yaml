@@ -1,0 +1,21 @@
+
+{ % for service in cookiecutter.components.values() if service.group == 'rel_db' and service.group == 'doc_db' and service.group == 'broker'  % }
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: -{{ service.name }}-backup
+  namespace: {{ cookiecutter.component.attributes.namespace }}
+spec:
+  includedNamespaces:
+    - postgresql
+  includedResources:
+    - persistentvolumeclaims
+    - persistentvolumes
+  labelSelector:
+    matchLabels:
+      stacktic.io/app: "{{ service.name }}"
+  storageLocation: default
+  ttl: 24h0m0s
+---
+{ % endfor % }
+
