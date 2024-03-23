@@ -6,7 +6,8 @@ configuration:
       config:
         s3ForcePathStyle: "true"
         region: minio
-        s3Url: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
+        s3Url: http://minio.minio.svc.cluster.local:9000
+        publicUrl: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
         insecureSkipTLSVerify: "true"
   volumeSnapshotLocation: []
 
