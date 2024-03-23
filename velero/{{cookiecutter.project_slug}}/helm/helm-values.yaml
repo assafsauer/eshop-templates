@@ -4,22 +4,14 @@ configuration:
       provider: aws
       bucket: velero
       config:
-        region: minio
         s3ForcePathStyle: "true"
         s3Url: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
         insecureSkipTLSVerify: "true"
-  volumeSnapshotLocation:
-    - name: default
-      provider: aws
-      config:
-        region: minio
-credentials:
-  useSecret: true
-  existingSecret: "{{ cookiecutter.technical.chart_version }}-velero"
+
 
 initContainers:
   - name: velero-plugin-for-aws
-    image: velero/velero-plugin-for-aws:v1.2.0 # Use the latest version compatible with your Velero installation
+    image: velero/velero-plugin-for-aws:v1.2.0
     imagePullPolicy: IfNotPresent
     volumeMounts:
       - mountPath: /target
