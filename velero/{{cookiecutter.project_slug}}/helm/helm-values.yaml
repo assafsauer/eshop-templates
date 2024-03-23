@@ -5,6 +5,7 @@ configuration:
       bucket: velero
       config:
         s3ForcePathStyle: "true"
+        region: minio
         s3Url: https://api.{{ cookiecutter.component.name }}.{{ cookiecutter.configuration.domain }}
         insecureSkipTLSVerify: "true"
   volumeSnapshotLocation: []
