@@ -2,7 +2,7 @@ configuration:
   backupStorageLocation:
     - name: default
       provider: aws
-      bucket: velero
+      bucket: {{ cookiecutter.links_to.minio.attributes.bucket }}
       config:
         s3ForcePathStyle: "true"
         region: minio
