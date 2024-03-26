@@ -1,7 +1,6 @@
 resources:
   - namespace.yaml
   - crds/
-  #- bucket-create.yaml
   - velero.yaml
 
 labels:

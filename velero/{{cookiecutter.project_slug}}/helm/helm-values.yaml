@@ -24,8 +24,8 @@ credentials:
   secretContents:
     cloud: |
       [default]
-      {%- for service in cookiecutter.components.values() if service.type == 'minio' %}
-      aws_access_key_id={{ service.attributes.access_key }}
-      aws_secret_access_key={{ service.attributes.secret_key }}
+      {% for link in cookiecutter.links_from.values() if link.group == "backup-storage" %}
+      aws_access_key_id={{ link.attributes.access_key }}
+      aws_secret_access_key={{ link.attributes.secret_key }}
       {%- endfor %}
 
